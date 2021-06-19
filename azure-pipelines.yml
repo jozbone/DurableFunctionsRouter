@@ -45,7 +45,7 @@ steps:
       $Url = "$(RouterUri)"
       $Body = @{    
         "Name" = "$(AppName)";
-        "ResourceGroup" = "$(AppName)rg";
+        "ResourceGroup" = "$rg-(AppName)";
         "FunctionAppName" = "$(AppName)";
         "Region" = "westus";
         "Version" = $csproj.Project.PropertyGroup.Version;
