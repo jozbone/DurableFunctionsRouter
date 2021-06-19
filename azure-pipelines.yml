@@ -48,7 +48,7 @@ steps:
         "ResourceGroup" = "$rg-(AppName)";
         "FunctionAppName" = "$(AppName)";
         "Region" = "eastus";
-        "AppInsightsLocation" = "${AppInsightsLocation)";
+        "AppInsightsLocation" = "$(AppInsightsLocation)";
         "Version" = $csproj.Project.PropertyGroup.Version;
       }
       $response = try {Invoke-RestMethod -Method 'Post' -Uri $Url -Body ($Body|ConvertTo-Json) } catch { $_.Exception.Response}
