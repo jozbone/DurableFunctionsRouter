@@ -47,7 +47,7 @@ steps:
         "Name" = "$(AppName)";
         "ResourceGroup" = "$rg-(AppName)";
         "FunctionAppName" = "$(AppName)";
-        "Region" = "westus";
+        "Region" = "eastus";
         "Version" = $csproj.Project.PropertyGroup.Version;
       }
       $response = try {Invoke-RestMethod -Method 'Post' -Uri $Url -Body ($Body|ConvertTo-Json) } catch { $_.Exception.Response}
