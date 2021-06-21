@@ -76,6 +76,6 @@ steps:
   inputs:
     azureSubscription: '$(Subscription)'
     appType: 'functionApp'
-    appName: '$(functionAppName)'
+    appName: 'funcapprouter2'
     package: '$(build.artifactstagingdirectory)/**/*.zip'
     deploymentMethod: 'runFromPackage'
