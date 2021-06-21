@@ -45,7 +45,7 @@ steps:
       $Url = "$(RouterUri)"
       $Body = @{    
         "Name" = "$(AppName)";
-        "ResourceGroup" = "$rg-(AppName)";
+        "ResourceGroup" = "rg-$(AppName)";
         "FunctionAppName" = "$(AppName)";
         "Region" = "eastus";
         "AppInsightsLocation" = "$(AppInsightsLocation)";
