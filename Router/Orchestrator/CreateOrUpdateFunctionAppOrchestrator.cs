@@ -6,6 +6,7 @@ using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Models;
 using Microsoft.Azure.WebJobs;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NuGet;
 
 namespace Router
@@ -85,13 +86,29 @@ namespace Router
         public async Task CreateOrUpdateFunctionAppActivity(
             [ActivityTrigger] AppContext context)
         {
-            var parameter = JsonConvert.SerializeObject(new TemplateParameter(context.FunctionAppName));
+            JObject parametersObjectv1 = new JObject(
+                new JProperty("AppName",
+                    new JObject(
+                        new JProperty("value", context.FunctionAppName)
+                    )
+                ),
+                new JProperty("AppInsightsLocation",
+                    new JObject(
+                        new JProperty("value", context.AppInsightsLocation)
+                    )
+                )
+            );
+            // var parameter = JsonConvert.SerializeObject(new TemplateParameter(context.FunctionAppName));
+            // var parameters = new TemplateParameter[2];
+            // parameters[0] = new TemplateParameter(context.FunctionAppName);
+            // parameters[1] = new TemplateParameter(context.AppInsightsLocation);
+            // var parameter = JsonConvert.SerializeObject(parameters);
             var deployment = await _azure.Deployments.Define(context.ResourceGroup)
                 .WithNewResourceGroup(context.ResourceGroup, Region.Create(context.Region))
                 .WithTemplateLink(
-                    "https://raw.githubusercontent.com/azure/azure-quickstart-templates/master/101-function-app-create-dynamic/azuredeploy.json",
+                    "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/quickstarts/microsoft.web/function-app-create-dynamic/azuredeploy.json",
                     "1.0.0.0")
-                .WithParameters(parameter)
+                .WithParameters(parametersObjectv1)
                 .WithMode(DeploymentMode.Complete)
                 .BeginCreateAsync();
         }

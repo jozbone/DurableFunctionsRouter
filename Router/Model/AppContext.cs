@@ -38,6 +38,8 @@ namespace Router
         /// State of the Function App
         /// </summary>
         public State State { get; set; }
+
+        public string AppInsightsLocation { get; set; }
     }
 
 }
