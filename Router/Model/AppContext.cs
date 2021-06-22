@@ -40,6 +40,8 @@ namespace Router
         public State State { get; set; }
 
         public string AppInsightsLocation { get; set; }
+
+        public string Runtime { get; set; }
     }
 
 }
